@@ -157,29 +157,10 @@ public class PrometeoCarController : MonoBehaviour
       float RLWextremumSlip;
       WheelFrictionCurve RRwheelFriction;
       float RRWextremumSlip;
+      
 
-      public bool Forwarding = false,  Reversing = false;
-  // Start is called before the first frame update
-
-  public void ForwardButtonPressed()
-  {
-    Debug.Log("Forward button pressed");
-    Forwarding = true;
-    }
-  public void ForwardButtonReleased()
-  {
-    Forwarding = false;
-    }
-  
-  public void ReverseButtonPressed()
-  {
-    Reversing = true;
-    }
-  public void ReverseButtonReleased()
-  {
-    Reversing = false;
-    }
-  void Start()
+    // Start is called before the first frame update
+    void Start()
     {
       //In this part, we set the 'carRigidbody' value with the Rigidbody attached to this
       //gameObject. Also, we define the center of mass of the car with the Vector3 given
@@ -347,14 +328,12 @@ public class PrometeoCarController : MonoBehaviour
 
       }else{
 
-        if(Input.GetKey(KeyCode.W)|| Forwarding){
-          Debug.Log("Forwarding");
+        if(Input.GetKey(KeyCode.W)){
           CancelInvoke("DecelerateCar");
           deceleratingCar = false;
           GoForward();
         }
-        if(Input.GetKey(KeyCode.S)|| Reversing){
-          Debug.Log("backwarding");
+        if(Input.GetKey(KeyCode.S)){
           CancelInvoke("DecelerateCar");
           deceleratingCar = false;
           GoReverse();
