@@ -2,7 +2,7 @@ using UnityEngine;
 
 public class SteeringWheelController : MonoBehaviour
 {
-   [SerializeField]private RectTransform wheelRect;
+    [SerializeField] private RectTransform wheelRect;
 
     private Vector2 wheelCenter;
     private float previousAngle;
@@ -20,54 +20,70 @@ public class SteeringWheelController : MonoBehaviour
         prometeoCarController = GetComponent<PrometeoCarController>();
     }
     void Update()
+{
+    if (Input.touchCount > 0)
     {
-        if (Input.touchCount > 0)
+        Touch touch = Input.GetTouch(0);
+        Vector2 touchPos = touch.position;
+
+        switch (touch.phase)
         {
-            Touch touch = Input.GetTouch(0);
-            Vector2 touchPos = touch.position;
+            case TouchPhase.Began:
+                wheelCenter = RectTransformUtility.WorldToScreenPoint(null, wheelRect.position);
+                if (RectTransformUtility.RectangleContainsScreenPoint(wheelRect, touchPos))
+                {
+                    previousAngle = GetAngle(touchPos);
+                    isTouching = true;
+                    prometeoCarController.SetIsSteeringTouching(true);
+                }
+                break;
 
-            switch (touch.phase)
-            {
-                case TouchPhase.Began:
-                    wheelCenter = RectTransformUtility.WorldToScreenPoint(null, wheelRect.position);
-                    if (RectTransformUtility.RectangleContainsScreenPoint(wheelRect, touchPos))
-                    {
-                        previousAngle = GetAngle(touchPos);
-                        isTouching = true;
-                    }
-                    break;
+            case TouchPhase.Moved:
+                if (isTouching)
+                {
+                    float currentAngle = GetAngle(touchPos);
+                    float delta = Mathf.DeltaAngle(previousAngle, currentAngle);
 
-                case TouchPhase.Moved:
-                    if (isTouching)
-                    {
-                        float currentAngle = GetAngle(touchPos);
-                        float delta = Mathf.DeltaAngle(previousAngle, currentAngle);
+                    currentRotation += delta;
+                    currentRotation = Mathf.Clamp(currentRotation, -maxVisualRotation, maxVisualRotation);
 
-                        currentRotation += delta;
-                        currentRotation = Mathf.Clamp(currentRotation, -maxVisualRotation, maxVisualRotation);
+                    wheelRect.rotation = Quaternion.Euler(0, 0, currentRotation);
+                    previousAngle = currentAngle;
+                    prometeoCarController.TurnTheCar(this.steeringAxis);
+                }
+                break;
 
-                        wheelRect.rotation = Quaternion.Euler(0, 0, currentRotation);
-                        previousAngle = currentAngle;
-
-                    }
-                    break;
-
-                case TouchPhase.Ended:
-                case TouchPhase.Canceled:
-                    isTouching = false;
-                    break;
-            }
+            case TouchPhase.Ended:
+            case TouchPhase.Canceled:
+                isTouching = false;
+                prometeoCarController.SetIsSteeringTouching(false);
+                break;
         }
-            prometeoCarController.TurnTheCar(this.steeringAxis);
-
-        // Normalize rotation value to -1 to 1
-        steeringAxis = Mathf.Clamp(currentRotation / maxVisualRotation, -1f, 1f);
-
     }
+    else if (!isTouching && Mathf.Abs(currentRotation) > 0.1f)
+{
+    ResetWheelVisual();
+}
+
+    // Normalize rotation value to -1 to 1
+    steeringAxis = Mathf.Clamp(currentRotation / maxVisualRotation, -1f, 1f);
+}
+
 
     float GetAngle(Vector2 pos)
     {
         Vector2 dir = pos - wheelCenter;
         return Mathf.Atan2(dir.y, dir.x) * Mathf.Rad2Deg;
     }
+  public void ResetWheelVisual()
+{
+    // Smoothly move currentRotation toward 0
+    currentRotation = Mathf.Lerp(currentRotation, 0f, Time.deltaTime * 10f);
+
+    // Apply the rotation to the wheel UI
+    wheelRect.rotation = Quaternion.Euler(0, 0, currentRotation);
+
+    // Update axis value
+    steeringAxis = Mathf.Clamp(currentRotation / maxVisualRotation, -1f, 1f);
+}
 }

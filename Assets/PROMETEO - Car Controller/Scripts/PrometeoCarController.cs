@@ -157,15 +157,21 @@ public class PrometeoCarController : MonoBehaviour
       float RLWextremumSlip;
       WheelFrictionCurve RRwheelFriction;
       float RRWextremumSlip;
+      private SteeringWheelController steeringWheelController;
+  bool IsSteeringTouching;
       
-
-    // Start is called before the first frame update
-    void Start()
+    public void SetIsSteeringTouching(bool isTouching)
     {
+        IsSteeringTouching = isTouching;
+    }
+    // Start is called before the first frame update
+  void Start()
+    {
+    steeringWheelController = GetComponent<SteeringWheelController>();
       //In this part, we set the 'carRigidbody' value with the Rigidbody attached to this
-      //gameObject. Also, we define the center of mass of the car with the Vector3 given
-      //in the inspector.
-      carRigidbody = gameObject.GetComponent<Rigidbody>();
+    //gameObject. Also, we define the center of mass of the car with the Vector3 given
+    //in the inspector.
+    carRigidbody = gameObject.GetComponent<Rigidbody>();
       carRigidbody.centerOfMass = bodyMassCenter;
 
       //Initial setup to calculate the drift value of the car. This part could look a bit
@@ -433,9 +439,10 @@ public class PrometeoCarController : MonoBehaviour
       frontLeftCollider.steerAngle = Mathf.Lerp(frontLeftCollider.steerAngle, steeringAngle, steeringSpeed);
       frontRightCollider.steerAngle = Mathf.Lerp(frontRightCollider.steerAngle, steeringAngle, steeringSpeed);
     }
-    public void TurnTheCar(float steeringAxis)
+    public void TurnTheCar(float steeringAxisInc)
 {
-    float axis = -steeringAxis; // ❗ Inverted to match real car direction
+    steeringAxis =-steeringAxisInc;
+    float axis = steeringAxis; // ❗ Inverted to match real car direction
     float targetSteering = axis * maxSteeringAngle;
 
     frontLeftCollider.steerAngle = Mathf.Lerp(frontLeftCollider.steerAngle, targetSteering, Time.deltaTime * 5);
@@ -456,17 +463,29 @@ public class PrometeoCarController : MonoBehaviour
     //The following method takes the front car wheels to their default position (rotation = 0). The speed of this movement will depend
     // on the steeringSpeed variable.
     public void ResetSteeringAngle(){
-      if(steeringAxis < 0f){
+    if (!IsSteeringTouching)
+    {
+      Debug.Log("Resetting Steering.");
+
+
+      if (steeringAxis < 0f)
+      {
         steeringAxis = steeringAxis + (Time.deltaTime * 10f * steeringSpeed);
-      }else if(steeringAxis > 0f){
+      }
+      else if (steeringAxis > 0f)
+      {
         steeringAxis = steeringAxis - (Time.deltaTime * 10f * steeringSpeed);
       }
-      if(Mathf.Abs(frontLeftCollider.steerAngle) < 1f){
+      if (Mathf.Abs(frontLeftCollider.steerAngle) < 1f)
+      {
         steeringAxis = 0f;
       }
       var steeringAngle = steeringAxis * maxSteeringAngle;
       frontLeftCollider.steerAngle = Mathf.Lerp(frontLeftCollider.steerAngle, steeringAngle, steeringSpeed);
       frontRightCollider.steerAngle = Mathf.Lerp(frontRightCollider.steerAngle, steeringAngle, steeringSpeed);
+      // steeringWheelController.RotateVisualWheelTo(frontLeftCollider.steerAngle);
+
+    }
     }
 
     // This method matches both the position and rotation of the WheelColliders with the WheelMeshes.
