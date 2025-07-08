@@ -115,16 +115,22 @@ public class PrometeoCarController : MonoBehaviour
       PrometeoTouchInput throttlePTI;
       public GameObject reverseButton;
       PrometeoTouchInput reversePTI;
+      
       public GameObject turnRightButton;
       PrometeoTouchInput turnRightPTI;
       public GameObject turnLeftButton;
       PrometeoTouchInput turnLeftPTI;
       public GameObject handbrakeButton;
       PrometeoTouchInput handbrakePTI;
+      
+      // public GameObject TiltthrottleButton;
+      // PrometeoTouchInput TiltthrottlePTI;
+      // public GameObject TiltreverseButton;
+      // PrometeoTouchInput TiltreversePTI;
 
     //CAR DATA
 
-      [HideInInspector]
+  [HideInInspector]
       public float carSpeed; // Used to store the speed of the car.
       [HideInInspector]
       public bool isDrifting; // Used to know whether the car is drifting or not.
@@ -158,11 +164,15 @@ public class PrometeoCarController : MonoBehaviour
       WheelFrictionCurve RRwheelFriction;
       float RRWextremumSlip;
       private SteeringWheelController steeringWheelController;
-  bool IsSteeringTouching;
+  bool IsSteeringTouching,isTiltControlEnabled;
       
     public void SetIsSteeringTouching(bool isTouching)
     {
         IsSteeringTouching = isTouching;
+    }
+    public void SetIsTiltControlEnabled(bool isTiltControl)
+    {
+        isTiltControlEnabled = isTiltControl;
     }
     // Start is called before the first frame update
   void Start()
@@ -250,11 +260,14 @@ public class PrometeoCarController : MonoBehaviour
 
         if(useTouchControls){
           if(throttleButton != null && reverseButton != null &&
+          
           turnRightButton != null && turnLeftButton != null
           && handbrakeButton != null){
 
             throttlePTI = throttleButton.GetComponent<PrometeoTouchInput>();
             reversePTI = reverseButton.GetComponent<PrometeoTouchInput>();
+            // TiltthrottlePTI = TiltthrottleButton.GetComponent<PrometeoTouchInput>();
+            // TiltreversePTI = TiltreverseButton.GetComponent<PrometeoTouchInput>();
             turnLeftPTI = turnLeftButton.GetComponent<PrometeoTouchInput>();
             turnRightPTI = turnRightButton.GetComponent<PrometeoTouchInput>();
             handbrakePTI = handbrakeButton.GetComponent<PrometeoTouchInput>();
@@ -328,6 +341,13 @@ public class PrometeoCarController : MonoBehaviour
           InvokeRepeating("DecelerateCar", 0f, 0.1f);
           deceleratingCar = true;
         }
+        // if((!TiltthrottlePTI.buttonPressed && !TiltreversePTI.buttonPressed)){
+        //   ThrottleOff();
+        // }
+        // if((!TiltreversePTI.buttonPressed && !TiltthrottlePTI.buttonPressed) && !handbrakePTI.buttonPressed && !deceleratingCar){
+        //   InvokeRepeating("DecelerateCar", 0f, 0.1f);
+        //   deceleratingCar = true;
+        // }
         if(!turnLeftPTI.buttonPressed && !turnRightPTI.buttonPressed && steeringAxis != 0f){
           ResetSteeringAngle();
         }
@@ -463,7 +483,7 @@ public class PrometeoCarController : MonoBehaviour
     //The following method takes the front car wheels to their default position (rotation = 0). The speed of this movement will depend
     // on the steeringSpeed variable.
     public void ResetSteeringAngle(){
-    if (!IsSteeringTouching)
+    if (!IsSteeringTouching&& !isTiltControlEnabled)
     {
       Debug.Log("Resetting Steering.");
 
