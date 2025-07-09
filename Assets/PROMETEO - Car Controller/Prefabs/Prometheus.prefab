@@ -48,6 +48,7 @@ GameObject:
   - component: {fileID: 627556911}
   - component: {fileID: 6599052721486798583}
   - component: {fileID: 1713719535808260622}
+  - component: {fileID: 5877128247032619813}
   m_Layer: 6
   m_Name: Prometheus
   m_TagString: Player
@@ -139,7 +140,7 @@ MonoBehaviour:
   useSounds: 0
   carEngineSound: {fileID: 0}
   tireScreechSound: {fileID: 0}
-  useTouchControls: 1
+  useTouchControls: 0
   throttleButton: {fileID: 0}
   reverseButton: {fileID: 0}
   turnRightButton: {fileID: 0}
@@ -177,6 +178,18 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   useTiltControls: 0
   tiltSensitivity: 2
+--- !u!114 &5877128247032619813
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 642287924342879162}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7599736b016b0b84c991e9a405751b8e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &934883528070179459
 GameObject:
   m_ObjectHideFlags: 0

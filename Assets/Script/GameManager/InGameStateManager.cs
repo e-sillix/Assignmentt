@@ -1,24 +1,27 @@
 using UnityEngine;
 using TMPro;
 using Unity.VisualScripting.Antlr3.Runtime.Tree;
+using UnityEngine.SceneManagement;
 
 public class InGameStateManager : MonoBehaviour
 {
-    private float GameTime=0f;
-    [SerializeField]private TextMeshProUGUI timerText;
-    private bool isGameStarted = true,isGameEnded=false;
+    private float GameTime = 0f;
+    [SerializeField] private TextMeshProUGUI timerText;
+    private bool isGameStarted = true, isGameEnded = false;
 
-
+    [SerializeField] private GameObject gameOverPanel, gameClearedPanel;
 
     public void TriggerGameOver()
     {
         Debug.Log("GameOver");
-        isGameEnded = true;        
+        isGameEnded = true;
+        gameOverPanel.SetActive(true);
     }
     public void TriggerGameCleared()
     {
         Debug.Log("Game Cleared.");
-        isGameEnded = true;        
+        isGameEnded = true;
+        gameClearedPanel.SetActive(true);
     }
     public void TriggerStartGame()
     {
@@ -36,7 +39,7 @@ public class InGameStateManager : MonoBehaviour
     }
     void Update()
     {
-        if (isGameStarted&&!isGameEnded)
+        if (isGameStarted && !isGameEnded)
         {
             GameTime += Time.deltaTime;
             int minutes = Mathf.FloorToInt(GameTime / 60f);
@@ -44,5 +47,10 @@ public class InGameStateManager : MonoBehaviour
             timerText.text = string.Format("{0:00}:{1:00}", minutes, seconds);
             // timerText.text = GameTime.ToString() ;
         }
+    }
+    public void RestartGame()
+    {
+        Debug.Log("Restart");
+        SceneManager.LoadScene(SceneManager.GetActiveScene().name);
     }
 }
