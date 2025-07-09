@@ -16,7 +16,8 @@ public class FlameCollisionDetection : MonoBehaviour
         {
             Debug.Log("Player Touched the flame thrower!");
             collision.gameObject.GetComponentInParent<PrometeoCarController>().CarBlast();
-            inGameStateManager.TriggerGameOver();          
+            inGameStateManager.TriggerGameOver();
+            inGameStateManager.TriggerSlowMotion();    
         }
     }
     

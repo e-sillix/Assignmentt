@@ -2,6 +2,7 @@ using UnityEngine;
 using TMPro;
 using Unity.VisualScripting.Antlr3.Runtime.Tree;
 using UnityEngine.SceneManagement;
+using System.Collections;
 
 public class InGameStateManager : MonoBehaviour
 {
@@ -9,9 +10,17 @@ public class InGameStateManager : MonoBehaviour
     [SerializeField] private TextMeshProUGUI timerText;
     [SerializeField] private GameControllManager gameControllManager;
     private bool isGameStarted = true, isGameEnded = false;
-    [SerializeField] private float ThreeStart, TwoStar, OneStar;
+    [SerializeField] private float ThreeStar, TwoStar, OneStar;
+    [SerializeField] private GameObject ThreeStarPanel, TwoStarPanel, OneStarPanel;
 
     [SerializeField] private GameObject gameOverPanel, gameClearedPanel;
+     public float slowDownFactor ; // Slow motion speed
+    public float slowDuration ;
+
+    void Awake()
+    {
+        Application.targetFrameRate = 60; // Set target frame rate
+    }
 
     public void TriggerGameOver()
     {
@@ -26,6 +35,23 @@ public class InGameStateManager : MonoBehaviour
         isGameEnded = true;
         gameClearedPanel.SetActive(true);
         gameControllManager.RemoveAllControls();
+        CalculateRatings();
+    }
+
+    public void CalculateRatings()
+    {
+        if (GameTime <= ThreeStar)
+        {
+            ThreeStarPanel.SetActive(true);
+        }
+        else if (GameTime <= TwoStar)
+        {
+            TwoStarPanel.SetActive(true);
+        }
+        else
+        {
+            OneStarPanel.SetActive(true);
+        }
     }
     public void TriggerStartGame()
     {
@@ -57,4 +83,26 @@ public class InGameStateManager : MonoBehaviour
         Debug.Log("Restart");
         SceneManager.LoadScene(SceneManager.GetActiveScene().name);
     }
+    public void TriggerSlowMotion()
+    {
+        StartCoroutine(SlowMotion());
+    }
+
+    IEnumerator SlowMotion()
+{
+    // wait new WaitForSecondsRealtime(0.5f); // Wait for 0.5 seconds in real time before starting slow motion
+    Time.timeScale = slowDownFactor;
+    Time.fixedDeltaTime = 0.02f * Time.timeScale;
+
+    float elapsed = 0f;
+    while (elapsed < slowDuration)
+    {
+        elapsed += Time.unscaledDeltaTime; // real-world time
+        yield return null;
+    }
+
+    Time.timeScale = 1f;
+    Time.fixedDeltaTime = 0.02f;
+}
+
 }
