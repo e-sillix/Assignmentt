@@ -8679,7 +8679,7 @@ PrefabInstance:
       objectReference: {fileID: 846603492}
     - target: {fileID: 627556911, guid: 79d0ca8b77e301442afdb49f102e8aed, type: 3}
       propertyPath: useTouchControls
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 261786959625234688, guid: 79d0ca8b77e301442afdb49f102e8aed, type: 3}
       propertyPath: m_LocalPosition.x

@@ -9,6 +9,7 @@ public class InGameStateManager : MonoBehaviour
     [SerializeField] private TextMeshProUGUI timerText;
     [SerializeField] private GameControllManager gameControllManager;
     private bool isGameStarted = true, isGameEnded = false;
+    [SerializeField] private float ThreeStart, TwoStar, OneStar;
 
     [SerializeField] private GameObject gameOverPanel, gameClearedPanel;
 
