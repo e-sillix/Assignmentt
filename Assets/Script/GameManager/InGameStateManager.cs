@@ -1,0 +1,48 @@
+using UnityEngine;
+using TMPro;
+using Unity.VisualScripting.Antlr3.Runtime.Tree;
+
+public class InGameStateManager : MonoBehaviour
+{
+    private float GameTime=0f;
+    [SerializeField]private TextMeshProUGUI timerText;
+    private bool isGameStarted = true,isGameEnded=false;
+
+
+
+    public void TriggerGameOver()
+    {
+        Debug.Log("GameOver");
+        isGameEnded = true;        
+    }
+    public void TriggerGameCleared()
+    {
+        Debug.Log("Game Cleared.");
+        isGameEnded = true;        
+    }
+    public void TriggerStartGame()
+    {
+        Debug.Log("Game Started.");
+    }
+    public void GamePaused()
+    {
+        Time.timeScale = 0f;
+        Debug.Log("Paused.");
+    }
+    public void GameResumed()
+    {
+        Time.timeScale = 1f;
+        Debug.Log("Resumed.");
+    }
+    void Update()
+    {
+        if (isGameStarted&&!isGameEnded)
+        {
+            GameTime += Time.deltaTime;
+            int minutes = Mathf.FloorToInt(GameTime / 60f);
+            int seconds = Mathf.FloorToInt(GameTime % 60f);
+            timerText.text = string.Format("{0:00}:{1:00}", minutes, seconds);
+            // timerText.text = GameTime.ToString() ;
+        }
+    }
+}
