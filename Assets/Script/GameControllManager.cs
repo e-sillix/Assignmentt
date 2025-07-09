@@ -3,11 +3,11 @@ using UnityEngine;
 public class GameControllManager : MonoBehaviour
 {
     [SerializeField] private ControlType controlType = ControlType.SteerWheel;
-    [SerializeField] private GameObject SteerWheelUI,TiltUI;
+    [SerializeField] private GameObject SteerWheelUI, TiltUI;
     private PrometeoCarController prometeoCarController;
     void Start()
     {
-        prometeoCarController= FindAnyObjectByType<PrometeoCarController>();
+        prometeoCarController = FindAnyObjectByType<PrometeoCarController>();
         SetControlType(controlType);
     }
 
@@ -39,6 +39,11 @@ public class GameControllManager : MonoBehaviour
     public ControlType GetControlType()
     {
         return controlType;
+    }
+    public void RemoveAllControls()
+    {
+        SteerWheelUI.SetActive(false);
+        TiltUI.SetActive(false);
     }
 }
 public enum ControlType

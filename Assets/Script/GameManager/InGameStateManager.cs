@@ -7,6 +7,7 @@ public class InGameStateManager : MonoBehaviour
 {
     private float GameTime = 0f;
     [SerializeField] private TextMeshProUGUI timerText;
+    [SerializeField] private GameControllManager gameControllManager;
     private bool isGameStarted = true, isGameEnded = false;
 
     [SerializeField] private GameObject gameOverPanel, gameClearedPanel;
@@ -16,12 +17,14 @@ public class InGameStateManager : MonoBehaviour
         Debug.Log("GameOver");
         isGameEnded = true;
         gameOverPanel.SetActive(true);
+        gameControllManager.RemoveAllControls();
     }
     public void TriggerGameCleared()
     {
         Debug.Log("Game Cleared.");
         isGameEnded = true;
         gameClearedPanel.SetActive(true);
+        gameControllManager.RemoveAllControls();
     }
     public void TriggerStartGame()
     {

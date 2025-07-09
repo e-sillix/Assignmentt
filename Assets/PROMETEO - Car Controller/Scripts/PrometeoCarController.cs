@@ -281,9 +281,20 @@ public class PrometeoCarController : MonoBehaviour
         }
 
     }
+  public void CarBlast()
+  {
+      // carRigidbody.isKinematic = false;
+      //  carRigidbody.isKinematic = false; // in case it was kinematic
+    carRigidbody.AddExplosionForce(10000f, transform.position, 50f,
+        5000f, ForceMode.Impulse);
+        carRigidbody.AddTorque(UnityEngine.Random.insideUnitSphere * 10000f, ForceMode.Impulse);
+
+
+        Debug.Log("Car exploded!");
+    }
 
     // Update is called once per frame
-    void Update()
+  void Update()
     {
 
       //CAR DATA
