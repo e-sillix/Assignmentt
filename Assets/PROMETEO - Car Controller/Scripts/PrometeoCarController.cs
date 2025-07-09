@@ -485,7 +485,7 @@ public class PrometeoCarController : MonoBehaviour
     public void ResetSteeringAngle(){
     if (!IsSteeringTouching&& !isTiltControlEnabled)
     {
-      Debug.Log("Resetting Steering.");
+      // Debug.Log("Resetting Steering.");
 
 
       if (steeringAxis < 0f)
