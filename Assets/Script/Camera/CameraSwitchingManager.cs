@@ -7,7 +7,7 @@ public class CameraSwitchingManager : MonoBehaviour
 {
     public CinemachineCamera mainCam;
     public CinemachineCamera stuntCam;
-    [SerializeField] private GroundColliider groundColliider;
+    // [SerializeField] private GroundColliider groundColliider;
     private bool isPlayerOnStunt = false;
 
     public void SwitchToStuntCamera()
