@@ -34,9 +34,7 @@ public class CarState : MonoBehaviour
             // FindAnyObjectByType<SpeedingAnimiation>().TriggerSpeedingAnimation();
 
         speedText.text = speedKmph + " Km/H"; // ✅ display as int
-        // if(!speedingAnimation){
-        //     return;
-        // }
+       
         if(speedKmph > speedingAnimationThreshold&& !isSpeedingAnimationTriggered){
             speedingAnimation.TriggerSpeedingAnimation();
             isSpeedingAnimationTriggered=true;
