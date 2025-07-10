@@ -3,7 +3,7 @@ using UnityEngine;
 public class GameControllManager : MonoBehaviour
 {
     [SerializeField] private ControlType controlType = ControlType.SteerWheel;
-    [SerializeField] private GameObject SteerWheelUI, TiltUI;
+    [SerializeField] private GameObject SteerWheelUI, TiltUI,ControlUI;
     private PrometeoCarController prometeoCarController;
     void Start()
     {
@@ -42,8 +42,8 @@ public class GameControllManager : MonoBehaviour
     }
     public void RemoveAllControls()
     {
-        SteerWheelUI.SetActive(false);
-        TiltUI.SetActive(false);
+        ControlUI.SetActive(false);
+        // TiltUI.SetActive(false);
     }
 }
 public enum ControlType
