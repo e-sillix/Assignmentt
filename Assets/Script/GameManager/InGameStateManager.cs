@@ -16,6 +16,11 @@ public class InGameStateManager : MonoBehaviour
     [SerializeField] private GameObject gameOverPanel, gameClearedPanel;
      public float slowDownFactor ; // Slow motion speed
     public float slowDuration ;
+    private SpeedingAnimiation speedingAnimation;
+
+    void Start(){
+        speedingAnimation=FindAnyObjectByType<SpeedingAnimiation>();
+    }
 
     void Awake()
     {
@@ -28,6 +33,7 @@ public class InGameStateManager : MonoBehaviour
         isGameEnded = true;
         gameOverPanel.SetActive(true);
         gameControllManager.RemoveAllControls();
+        speedingAnimation.EndAnimation();
     }
     public void TriggerGameCleared()
     {
@@ -36,6 +42,7 @@ public class InGameStateManager : MonoBehaviour
         gameClearedPanel.SetActive(true);
         gameControllManager.RemoveAllControls();
         CalculateRatings();
+        speedingAnimation.EndAnimation();
     }
 
     public void CalculateRatings()

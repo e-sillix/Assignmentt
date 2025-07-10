@@ -46,10 +46,6 @@ GameObject:
   - component: {fileID: 261786959625234688}
   - component: {fileID: 5135156708204615449}
   - component: {fileID: 627556911}
-  - component: {fileID: 6599052721486798583}
-  - component: {fileID: 1713719535808260622}
-  - component: {fileID: 5877128247032619813}
-  - component: {fileID: 7186178847378929649}
   - component: {fileID: 8061049376864826473}
   m_Layer: 6
   m_Name: CinematicCar
@@ -115,7 +111,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c0fefceefe666bb4682b272ec8c5bdd0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  maxSpeed: 120
+  maxSpeed: 190
   maxReverseSpeed: 45
   accelerationMultiplier: 10
   maxSteeringAngle: 35
@@ -151,66 +147,6 @@ MonoBehaviour:
   carSpeed: 0
   isDrifting: 0
   isTractionLocked: 0
---- !u!114 &6599052721486798583
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 642287924342879162}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b0bae5a091c225141979c41abc5c57c0, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  wheelRect: {fileID: 0}
-  maxVisualRotation: 180
-  steeringAxis: 0
---- !u!114 &1713719535808260622
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 642287924342879162}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 16100ce7813a61e48883719563475627, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  useTiltControls: 0
-  tiltSensitivity: 2
---- !u!114 &5877128247032619813
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 642287924342879162}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 7599736b016b0b84c991e9a405751b8e, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  minimumHeightForFall: -25
---- !u!114 &7186178847378929649
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 642287924342879162}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 6aaebf5e8b2d1214ba263f51d126d993, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  GroundLayer:
-    serializedVersion: 2
-    m_Bits: 0
-  RampLayer:
-    serializedVersion: 2
-    m_Bits: 0
 --- !u!114 &8061049376864826473
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -223,6 +159,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bb82a59a059784148bfcb6cbd6f055e1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  Trigger:
+    serializedVersion: 2
+    m_Bits: 1024
 --- !u!1 &934883528070179459
 GameObject:
   m_ObjectHideFlags: 0

@@ -50,6 +50,7 @@ GameObject:
   - component: {fileID: 1713719535808260622}
   - component: {fileID: 5877128247032619813}
   - component: {fileID: 7186178847378929649}
+  - component: {fileID: 2229675701445660224}
   m_Layer: 6
   m_Name: Prometheus
   m_TagString: Player
@@ -116,12 +117,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   maxSpeed: 120
   maxReverseSpeed: 45
-  accelerationMultiplier: 10
+  accelerationMultiplier: 7
   maxSteeringAngle: 35
   steeringSpeed: 0.5
   brakeForce: 450
   decelerationMultiplier: 2
-  handbrakeDriftMultiplier: 5
+  handbrakeDriftMultiplier: 3
   bodyMassCenter: {x: 0, y: 0, z: 0}
   frontLeftMesh: {fileID: 8649133034589738184}
   frontLeftCollider: {fileID: 2239677824950174677}
@@ -141,7 +142,7 @@ MonoBehaviour:
   useSounds: 0
   carEngineSound: {fileID: 0}
   tireScreechSound: {fileID: 0}
-  useTouchControls: 0
+  useTouchControls: 1
   throttleButton: {fileID: 0}
   reverseButton: {fileID: 0}
   turnRightButton: {fileID: 0}
@@ -192,6 +193,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   minimumHeightForFall: -25
+  speedText: {fileID: 0}
+  speedingAnimationThreshold: 50
 --- !u!114 &7186178847378929649
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -204,6 +207,25 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6aaebf5e8b2d1214ba263f51d126d993, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  GroundLayer:
+    serializedVersion: 2
+    m_Bits: 256
+  RampLayer:
+    serializedVersion: 2
+    m_Bits: 512
+--- !u!114 &2229675701445660224
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 642287924342879162}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 62a15fa712b4c534f936e018b929ddc9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  SpeedingAnimator: {fileID: 0}
 --- !u!1 &934883528070179459
 GameObject:
   m_ObjectHideFlags: 0
@@ -335,6 +357,7 @@ GameObject:
   m_Component:
   - component: {fileID: 5534550323598598708}
   - component: {fileID: 8706808774334851022}
+  - component: {fileID: 8416369924623736605}
   m_Layer: 6
   m_Name: RearRightWheel
   m_TagString: Untagged
@@ -386,7 +409,7 @@ WheelCollider:
     m_ExtremumValue: 1
     m_AsymptoteSlip: 0.5
     m_AsymptoteValue: 0.75
-    m_Stiffness: 1
+    m_Stiffness: 2
   m_IncludeLayers:
     serializedVersion: 2
     m_Bits: 0
@@ -396,6 +419,27 @@ WheelCollider:
   m_LayerOverridePriority: 0
   m_Enabled: 1
   m_ProvidesContacts: 0
+--- !u!135 &8416369924623736605
+SphereCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1025541434198643357}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 1
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Radius: 0.4
+  m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &1432273449035489855
 GameObject:
   m_ObjectHideFlags: 0
@@ -406,6 +450,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4516980660217037521}
   - component: {fileID: 7877667524431639919}
+  - component: {fileID: 3074599218249777065}
   m_Layer: 6
   m_Name: FrontRightWheel
   m_TagString: Untagged
@@ -457,7 +502,7 @@ WheelCollider:
     m_ExtremumValue: 1
     m_AsymptoteSlip: 0.5
     m_AsymptoteValue: 0.75
-    m_Stiffness: 1
+    m_Stiffness: 2
   m_IncludeLayers:
     serializedVersion: 2
     m_Bits: 0
@@ -467,6 +512,27 @@ WheelCollider:
   m_LayerOverridePriority: 0
   m_Enabled: 1
   m_ProvidesContacts: 0
+--- !u!135 &3074599218249777065
+SphereCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1432273449035489855}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 1
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Radius: 0.4
+  m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &2001459980240962088
 GameObject:
   m_ObjectHideFlags: 0
@@ -477,6 +543,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2798787354462298965}
   - component: {fileID: 2239677824950174677}
+  - component: {fileID: 6002687560009018103}
   m_Layer: 6
   m_Name: FrontLeftWheel
   m_TagString: Untagged
@@ -528,7 +595,7 @@ WheelCollider:
     m_ExtremumValue: 1
     m_AsymptoteSlip: 0.5
     m_AsymptoteValue: 0.75
-    m_Stiffness: 1
+    m_Stiffness: 2
   m_IncludeLayers:
     serializedVersion: 2
     m_Bits: 0
@@ -538,6 +605,27 @@ WheelCollider:
   m_LayerOverridePriority: 0
   m_Enabled: 1
   m_ProvidesContacts: 0
+--- !u!135 &6002687560009018103
+SphereCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2001459980240962088}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 1
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Radius: 0.4
+  m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &2077481708272809950
 GameObject:
   m_ObjectHideFlags: 0
@@ -841,6 +929,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2350058031404111781}
   - component: {fileID: 8615825633152659129}
+  - component: {fileID: 5452975665513610794}
   m_Layer: 6
   m_Name: RearLeftWheel
   m_TagString: Untagged
@@ -892,7 +981,7 @@ WheelCollider:
     m_ExtremumValue: 1
     m_AsymptoteSlip: 0.5
     m_AsymptoteValue: 0.75
-    m_Stiffness: 1
+    m_Stiffness: 2
   m_IncludeLayers:
     serializedVersion: 2
     m_Bits: 0
@@ -902,6 +991,27 @@ WheelCollider:
   m_LayerOverridePriority: 0
   m_Enabled: 1
   m_ProvidesContacts: 0
+--- !u!135 &5452975665513610794
+SphereCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8557483882129953539}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 1
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Radius: 0.4
+  m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &8649133034589738184
 GameObject:
   m_ObjectHideFlags: 0

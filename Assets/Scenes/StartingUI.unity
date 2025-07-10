@@ -1308,14 +1308,6 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 627556911, guid: b1a9645b89631784fae8edd238091b23, type: 3}
-      propertyPath: maxSpeed
-      value: 190
-      objectReference: {fileID: 0}
-    - target: {fileID: 627556911, guid: b1a9645b89631784fae8edd238091b23, type: 3}
-      propertyPath: accelerationMultiplier
-      value: 10
-      objectReference: {fileID: 0}
     - target: {fileID: 261786959625234688, guid: b1a9645b89631784fae8edd238091b23, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0
@@ -1359,10 +1351,6 @@ PrefabInstance:
     - target: {fileID: 642287924342879162, guid: b1a9645b89631784fae8edd238091b23, type: 3}
       propertyPath: m_Name
       value: CinematicCar
-      objectReference: {fileID: 0}
-    - target: {fileID: 8061049376864826473, guid: b1a9645b89631784fae8edd238091b23, type: 3}
-      propertyPath: Trigger.m_Bits
-      value: 1024
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
