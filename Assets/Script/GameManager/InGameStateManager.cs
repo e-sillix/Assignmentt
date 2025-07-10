@@ -81,6 +81,8 @@ public class InGameStateManager : MonoBehaviour
     public void RestartGame()
     {
         Debug.Log("Restart");
+        Time.timeScale = 1f;
+        Time.fixedDeltaTime = 0.02f;
         SceneManager.LoadScene(SceneManager.GetActiveScene().name);
     }
     public void TriggerSlowMotion()

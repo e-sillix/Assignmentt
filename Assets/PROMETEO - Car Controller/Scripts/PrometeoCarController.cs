@@ -165,6 +165,11 @@ public class PrometeoCarController : MonoBehaviour
       float RRWextremumSlip;
       private SteeringWheelController steeringWheelController;
   bool IsSteeringTouching,isTiltControlEnabled;
+  private bool isCinematicOn=false;
+
+  public void SetCinematicOn(){
+    isCinematicOn = true;
+  }
       
     public void SetIsSteeringTouching(bool isTouching)
     {
@@ -365,7 +370,8 @@ public class PrometeoCarController : MonoBehaviour
 
       }else{
 
-        if(Input.GetKey(KeyCode.W)){
+        if(Input.GetKey(KeyCode.W)||isCinematicOn){
+          // Debug.Log("Go");
           CancelInvoke("DecelerateCar");
           deceleratingCar = false;
           GoForward();
@@ -390,10 +396,10 @@ public class PrometeoCarController : MonoBehaviour
         if(Input.GetKeyUp(KeyCode.Space)){
           RecoverTraction();
         }
-        if((!Input.GetKey(KeyCode.S) && !Input.GetKey(KeyCode.W))){
+        if((!Input.GetKey(KeyCode.S) && !(Input.GetKey(KeyCode.W)||isCinematicOn))){
           ThrottleOff();
         }
-        if((!Input.GetKey(KeyCode.S) && !Input.GetKey(KeyCode.W)) && !Input.GetKey(KeyCode.Space) && !deceleratingCar){
+        if((!Input.GetKey(KeyCode.S) && !(Input.GetKey(KeyCode.W)||isCinematicOn)) && !Input.GetKey(KeyCode.Space) && !deceleratingCar){
           InvokeRepeating("DecelerateCar", 0f, 0.1f);
           deceleratingCar = true;
         }
