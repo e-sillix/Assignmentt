@@ -10431,7 +10431,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3014746362317183595, guid: 79d0ca8b77e301442afdb49f102e8aed, type: 3}
       propertyPath: yawTorque
-      value: 6000
+      value: 1000
       objectReference: {fileID: 0}
     - target: {fileID: 3014746362317183595, guid: 79d0ca8b77e301442afdb49f102e8aed, type: 3}
       propertyPath: glideForce
@@ -10439,7 +10439,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3014746362317183595, guid: 79d0ca8b77e301442afdb49f102e8aed, type: 3}
       propertyPath: pitchTorque
-      value: 8000
+      value: 1000
+      objectReference: {fileID: 0}
+    - target: {fileID: 3014746362317183595, guid: 79d0ca8b77e301442afdb49f102e8aed, type: 3}
+      propertyPath: dampingFactor
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 3073440753079120758, guid: 79d0ca8b77e301442afdb49f102e8aed, type: 3}
       propertyPath: m_Mesh
@@ -10453,6 +10457,14 @@ PrefabInstance:
       propertyPath: m_Mesh
       value: 
       objectReference: {fileID: 1800131087}
+    - target: {fileID: 5135156708204615449, guid: 79d0ca8b77e301442afdb49f102e8aed, type: 3}
+      propertyPath: m_ImplicitCom
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5135156708204615449, guid: 79d0ca8b77e301442afdb49f102e8aed, type: 3}
+      propertyPath: m_CenterOfMass.y
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 5877128247032619813, guid: 79d0ca8b77e301442afdb49f102e8aed, type: 3}
       propertyPath: speedText
       value: 

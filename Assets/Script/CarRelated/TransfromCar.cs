@@ -11,6 +11,7 @@ public class TransfromCar : MonoBehaviour
     public float pitchTorque;  // W/S
     public float yawTorque;    // A/D
 
+    [SerializeField] private float dampingFactor ;
     private void Start()
     {
         rb = GetComponent<Rigidbody>();
@@ -34,36 +35,46 @@ public class TransfromCar : MonoBehaviour
         if (!isGliding)
         {
 
-        return;
-         }
+            return;
+        }
 
         Debug.Log("Gliding Control are being Applied.");
         // Forward force (simulate thrust)
-        rb.AddForce(transform.forward * glideForce );
+        rb.AddForce(transform.forward * glideForce);
 
         // Upward lift (simulate air lift)
         // rb.AddForce(transform.up * liftForce * Time.fixedDeltaTime);
-        rb.AddForce(Vector3.up * liftForce);
+
         // --- Controls while gliding ---
 
         // Pitch Up/Down (W/S)
         if (Input.GetKey(KeyCode.W))
         {
-            rb.AddTorque(-transform.right * pitchTorque );
+            rb.AddTorque(-transform.right * pitchTorque);
         }
         else if (Input.GetKey(KeyCode.S))
         {
-            rb.AddTorque(transform.right * pitchTorque );
+            rb.AddTorque(transform.right * pitchTorque);
         }
 
-        // Yaw Left/Right (A/D)
+
         if (Input.GetKey(KeyCode.A))
-        {
-            rb.AddTorque(-transform.up * yawTorque);
-        }
-        else if (Input.GetKey(KeyCode.D))
-        {
-            rb.AddTorque(transform.up * yawTorque );
-        }
+            rb.AddTorque(transform.forward * yawTorque * 1.5f);
+
+        if (Input.GetKey(KeyCode.D))
+            rb.AddTorque(-transform.forward * yawTorque * 1.5f);
+
+        rb.AddForce(transform.up * liftForce);
+
+        if (!Input.GetKey(KeyCode.W) &&
+        !Input.GetKey(KeyCode.S) &&
+        !Input.GetKey(KeyCode.A) &&
+        !Input.GetKey(KeyCode.D))
+    {
+        rb.angularVelocity = Vector3.Lerp(rb.angularVelocity, Vector3.zero,
+        dampingFactor * Time.fixedDeltaTime);
     }
+
+    }
+    
 }
