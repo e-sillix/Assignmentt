@@ -50,19 +50,19 @@ public class TransfromCar : MonoBehaviour
         // Pitch Up/Down (W/S)
         if (Input.GetKey(KeyCode.W))
         {
-            rb.AddTorque(-transform.right * pitchTorque);
+            rb.AddTorque(transform.right * pitchTorque);
         }
         else if (Input.GetKey(KeyCode.S))
         {
-            rb.AddTorque(transform.right * pitchTorque);
+            rb.AddTorque(-transform.right * pitchTorque);
         }
 
 
         if (Input.GetKey(KeyCode.A))
-            rb.AddTorque(transform.forward * yawTorque * 1.5f);
+            rb.AddTorque(transform.up * yawTorque * 1.5f);
 
         if (Input.GetKey(KeyCode.D))
-            rb.AddTorque(-transform.forward * yawTorque * 1.5f);
+            rb.AddTorque(-transform.up * yawTorque * 1.5f);
 
         rb.AddForce(transform.up * liftForce);
 
