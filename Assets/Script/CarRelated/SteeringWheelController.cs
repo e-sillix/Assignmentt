@@ -14,13 +14,15 @@ public class SteeringWheelController : MonoBehaviour
     public float steeringAxis = 0f; // -1 to +1
 
     private PrometeoCarController prometeoCarController;
+    private TransfromCar transfromCar;
 
 
     void Start()
     {
         prometeoCarController = GetComponent<PrometeoCarController>();
+        transfromCar = GetComponent<TransfromCar>();
     }
-   void Update()
+   void FixedUpdate()
     {
         // 1. Detect new touch starting on the wheel
         if (!isTouching && Input.touchCount > 0)
@@ -48,8 +50,10 @@ public class SteeringWheelController : MonoBehaviour
         {
             for (int i = 0; i < Input.touchCount; i++)
             {
+
                 Touch t = Input.GetTouch(i);
                 if (t.fingerId != activeFingerId) continue;
+                transfromCar.TurnOnMobileUsingSteer(steeringAxis);
 
                 if (t.phase == TouchPhase.Moved)
                 {
@@ -63,7 +67,9 @@ public class SteeringWheelController : MonoBehaviour
                     previousAngle = currentAngle;
 
                     prometeoCarController.TurnTheCar(steeringAxis);
+
                 }
+
                 else if (t.phase == TouchPhase.Ended || t.phase == TouchPhase.Canceled)
                 {
                     isTouching = false;

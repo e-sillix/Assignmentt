@@ -4,10 +4,14 @@ public class TiltControl : MonoBehaviour
 {
    [SerializeField] private bool useTiltControls = false;
    [SerializeField] private float tiltSensitivity = 2f;
+    private PrometeoCarController prometeoCarController;
+    private TransfromCar transformCar;
 
     private void Start()
     {
         Input.gyro.enabled = true;
+        prometeoCarController = GetComponent<PrometeoCarController>();
+        transformCar = GetComponent<TransfromCar>();
     }
     public void SetUseTiltControls(bool use)
     {
@@ -24,7 +28,9 @@ public class TiltControl : MonoBehaviour
             if (Mathf.Abs(tilt) < 0.1f)
                 tilt = 0f;
 
-            GetComponent<PrometeoCarController>().TurnTheCar(-tilt);
+            prometeoCarController.TurnTheCar(-tilt);
+            transformCar.TurnOnMobileUsingGyro(-tilt);
+            
         }
     }
 }

@@ -10,11 +10,17 @@ public class TransfromCar : MonoBehaviour
     public float liftForce;    // upward lift
     public float pitchTorque;  // W/S
     public float yawTorque;    // A/D
+    private bool isTurnUP, isTurnDown;
+    [SerializeField] private GameObject ButtonUP, ButtonDOWN;
+    private PrometeoTouchInput throttlePTI,BackPTI;
 
-    [SerializeField] private float dampingFactor ;
+    [SerializeField] private float dampingFactor;
+    public LayerMask GroundLayer;
     private void Start()
     {
         rb = GetComponent<Rigidbody>();
+        throttlePTI = ButtonUP.GetComponent<PrometeoTouchInput>();
+        BackPTI = ButtonDOWN.GetComponent<PrometeoTouchInput>();
     }
 
     public void TriggerGliding()
@@ -29,14 +35,32 @@ public class TransfromCar : MonoBehaviour
         Glider.SetActive(false);
         isGliding = false;
     }
+    void OnTriggerStay(Collider other)
+    {
+        Debug.Log("Staying on Ground");
+        if (isGliding)
+        {
+
+            if ((((1 << other.gameObject.layer) & GroundLayer) != 0))
+            {
+                Debug.Log("Player has landed .");
+                TriggerCancelGliding();
+
+            }
+        }
+    }
 
     void FixedUpdate()
     {
+        if (Input.GetKey(KeyCode.G))
+        {
+            TriggerGliding();
+        }
         if (!isGliding)
         {
-
             return;
         }
+
 
         Debug.Log("Gliding Control are being Applied.");
         // Forward force (simulate thrust)
@@ -48,11 +72,11 @@ public class TransfromCar : MonoBehaviour
         // --- Controls while gliding ---
 
         // Pitch Up/Down (W/S)
-        if (Input.GetKey(KeyCode.W))
+        if (Input.GetKey(KeyCode.W)||throttlePTI.buttonPressed)
         {
             rb.AddTorque(transform.right * pitchTorque);
         }
-        else if (Input.GetKey(KeyCode.S))
+        else if (Input.GetKey(KeyCode.S)||BackPTI.buttonPressed)
         {
             rb.AddTorque(-transform.right * pitchTorque);
         }
@@ -69,12 +93,47 @@ public class TransfromCar : MonoBehaviour
         if (!Input.GetKey(KeyCode.W) &&
         !Input.GetKey(KeyCode.S) &&
         !Input.GetKey(KeyCode.A) &&
-        !Input.GetKey(KeyCode.D))
-    {
-        rb.angularVelocity = Vector3.Lerp(rb.angularVelocity, Vector3.zero,
-        dampingFactor * Time.fixedDeltaTime);
+        !Input.GetKey(KeyCode.D)&& !throttlePTI.buttonPressed&& !BackPTI.buttonPressed) 
+        {
+            rb.angularVelocity = Vector3.Lerp(rb.angularVelocity, Vector3.zero,
+            dampingFactor * Time.fixedDeltaTime);
+        }
+
     }
 
+    public void TurnOnMobileUsingSteer(float Yawing)
+    {
+        if (isGliding)
+        {
+            Debug.Log("Turn with:" + Yawing);
+            rb.AddTorque(-transform.up * yawTorque * 1.5f * Yawing);
+        }
+    }
+    public void TurnOnMobileUsingGyro(float Yawing)
+    {
+        if (isGliding)
+        {
+
+            Debug.Log("Turn with:" + Yawing);
+            rb.AddTorque(-transform.up * yawTorque * 1.5f * Yawing);
+        }
+    }
+    public void TurnUpMobileUsingButtonON()
+    {
+        isTurnUP = true;
+    }
+    public void TurnUpMobileUsingButtonOFF()
+    {
+        isTurnUP = false;
+    }
+    public void TurnDownMobileUsingButtonON()
+    {
+        isTurnDown = true;
+    }
+   
+    public void TurnDownMobileUsingButtonOFF()
+    {
+        isTurnDown = false;
     }
     
 }
