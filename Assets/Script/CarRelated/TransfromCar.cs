@@ -59,10 +59,10 @@ public class TransfromCar : MonoBehaviour
 
 
         if (Input.GetKey(KeyCode.A))
-            rb.AddTorque(transform.up * yawTorque * 1.5f);
+            rb.AddTorque(-transform.up * yawTorque * 1.5f);
 
         if (Input.GetKey(KeyCode.D))
-            rb.AddTorque(-transform.up * yawTorque * 1.5f);
+            rb.AddTorque(transform.up * yawTorque * 1.5f);
 
         rb.AddForce(transform.up * liftForce);
 

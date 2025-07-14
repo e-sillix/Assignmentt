@@ -10427,7 +10427,7 @@ PrefabInstance:
       objectReference: {fileID: 1908482646}
     - target: {fileID: 3014746362317183595, guid: 79d0ca8b77e301442afdb49f102e8aed, type: 3}
       propertyPath: liftForce
-      value: 8000
+      value: 7000
       objectReference: {fileID: 0}
     - target: {fileID: 3014746362317183595, guid: 79d0ca8b77e301442afdb49f102e8aed, type: 3}
       propertyPath: yawTorque
